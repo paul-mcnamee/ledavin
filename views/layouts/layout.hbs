@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+      <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-h21C2fcDk/eFsW9sC9h0dhokq5pDinLNklTKoxIZRUn3+hvmgQSffLLQ4G4l2eEr" crossorigin="anonymous">
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    {{> header}}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+    <div class="container">
+        {{# if messages.error}}
+            <div class="alert alert-danger">{{messages.error}}</div>
+        {{/if}}
+        {{# if messages.info}}
+            <div class="alert alert-info">{{messages.info}}</div>
+        {{/if}}
+        {{# if messages.success}}
+            <div class="alert alert-success">{{messages.success}}</div>
+        {{/if}}
+        {{{body}}}
+    </div>
+    {{> footer}}
+    <script src="https://use.fontawesome.com/fcbed52496.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>

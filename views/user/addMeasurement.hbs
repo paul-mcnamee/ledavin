@@ -1,0 +1,163 @@
+<h2>Measurements</h2>
+<div class="row">
+    <!--TODO: maybe just add these as tooltips or something so they're not so obtrusive-->
+    <div class="col-md-7 center">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Type of Fit <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <img src="../../images/type_of_fit.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Tuck Preference <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="col-md-6 thumbnail" style="border: 0">
+                            <h4>Tucked</h4>
+                            <img src="../../images/tucked_shirt.jpg" class="img-responsive">
+                        </div>
+                        <div class="col-md-6 thumbnail" style="border: 0">
+                            <h4>Untucked</h4>
+                            <img src="../../images/untucked_shirt.jpg" class="img-responsive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Shoulder Slope <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="../../images/shoulder_slope.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Shirt Measurements <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="../../images/shirt_measurements.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <form action="/user/addMeasurement" method="post" id="new-contact-form">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="" for="measurementDescription">Description</label>
+                    <input type="text" id="measurementDescription" class="form-control" placeholder="Paul's Shirt" name="MeasurementDescription" required>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="fit">Type Of Fit</label>
+                    <select class="form-control" id="fit" name="Fit" required>
+                        <option>Regular</option>
+                        <option>Fitted</option>
+                        <option>Slim</option>
+                        <!--TODO: I have never seen Athletic as an option, we need to check with the tailors what they know as industry standard-->
+                        <option>Athletic</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="tuckPreference">Tuck Preference</label>
+                    <select class="form-control" id="tuckPreference" name="TuckPreference" required>
+                        <option>Tucked</option>
+                        <option>Un-Tucked</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="shoulderSlope">Shoulder Slope</label>
+                    <select class="form-control" id="shoulderSlope" name="ShoulderSlope" required>
+                        <option>Normal</option>
+                        <option>Sloping</option>
+                        <option>Square</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="units">Units</label>
+                    <select class="form-control" id="units" name="Units" required>
+                        <option>Inches</option>
+                        <option>Centimeters</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <br/>
+                <div class="form-group">
+                    <label class="sr-only" for="napeOfNeckToButt">1. Nape Of Neck To Butt</label>
+                    <input type="number" id="napeOfNeckToButt" class="form-control" placeholder="1. Nape Of Neck To Butt" name="NapeOfNeckToButt" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="acrossBack">2. Across Back</label>
+                    <input type="number" id="acrossBack" class="form-control" placeholder="2. Across Back" name="AcrossBack" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="acrossShoulders">3. Across Shoulders</label>
+                    <input type="number" id="acrossShoulders" class="form-control" placeholder="3. Across Shoulders" name="AcrossShoulders" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="ballOfNeckToEdgeOfShoulders">4. Ball Of Neck To Edge Of Shoulders</label>
+                    <input type="number" id="ballOfNeckToEdgeOfShoulders" class="form-control" placeholder="4. Ball Of Neck To Edge Of Shoulders" name="BallOfNeckToEdgeOfShoulders" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="shoulderToElbow">5. Shoulder To Elbow</label>
+                    <input type="number" id="shoulderToElbow" class="form-control" placeholder="5. Shoulder To Elbow" name="ShoulderToElbow" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="elbowToEdgeOfCuff">6. Elbow To Edge Of Cuff</label>
+                    <input type="number" id="elbowToEdgeOfCuff" class="form-control" placeholder="6. Elbow To Edge Of Cuff" name="ElbowToEdgeOfCuff" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="wrist">7. Wrist</label>
+                    <input type="number" id="wrist" class="form-control" placeholder="7. Wrist" name="Wrist" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="bicep">8. Bicep</label>
+                    <input type="number" id="bicep" class="form-control" placeholder="8. Bicep" name="Bicep" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="neck">9. Neck</label>
+                    <input type="number" id="neck" class="form-control" placeholder="9. Neck" name="Neck" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="chest">10. Chest</label>
+                    <input type="number" id="chest" class="form-control" placeholder="10. Chest" name="Chest" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="waist">11. Waist</label>
+                    <input type="number" id="waist" class="form-control" placeholder="11. Waist" name="Waist" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="hips">12. Hips</label>
+                    <input type="number" id="hips" class="form-control" placeholder="12. Hips" name="Hips" step="0.1" min="0" required>
+                </div>
+            </div>
+            <hr>
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+            <button type="submit" class="btn btn-default">
+                <i class="fa fa-plus"></i> Add Measurements
+            </button>
+        </form>
+    </div>
+</div>
+

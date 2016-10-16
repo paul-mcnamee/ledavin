@@ -1,0 +1,182 @@
+{{# if hasErrors}}
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <div id="fail" class="alert alert-failure">
+                {{ errors }}
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+<h2>{{ email }}</h2>
+
+{{# if orders}}
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Orders</h3>
+            <div class="panel-group" id="accordion">
+                {{# each orders}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{@index}}">Submitted on: {{this.orderCreated}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            </h4>
+                        </div>
+                        <div id="collapse{{@index}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+
+                                    <tr>
+                                        <td><strong>Item</strong></td>
+                                        <td><strong>Quantity</strong></td>
+                                        <td><strong>Price</strong></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each this.items}}
+                                        <tr>
+                                            <td>
+                                                {{this.item.title}}
+                                            </td>
+                                            <td>
+                                                {{this.qty}}
+                                            </td>
+                                            <td>
+                                                ${{this.price}}
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <td><strong>Measurements</strong></td>
+                                                <td><strong>Shipping Address</strong></td>
+                                                <td><strong>Billing Address</strong></td>
+                                                <td><strong>Total</strong></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>{{this.cart.selectedMeasurements.measurementDescription}}</td>
+                                                <td>{{this.shipping.contact.address}}</td>
+                                                <td>{{this.billing.address}}</td>
+                                                <td>${{this.cart.totalPrice}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+{{# if contacts}}
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Contacts</h3>
+            <!--TODO: look at the addContact form for an example!!-->
+            <!--TODO: make this not visible by default, only show the fields when the user clicks the edit button-->
+            <table class="table table-hover">
+                {{#each contacts}}
+                    <tr>
+                        <td>
+                            {{description}}
+                        </td>
+                        <td>
+                            {{firstName}} {{lastName}}
+                        </td>
+                        <td>
+                            {{phone}}
+                        </td>
+                        <td>
+                            {{address}} {{country}} {{city}} {{state}} {{zipcode}}
+                        </td>
+                        <td>
+                            <a href="editContact/{{@index}}" type="submit" class="btn btn-default fa fa-pencil"></a>
+                            <a href="removeContact/{{@index}}" type="submit" class="btn btn-default fa fa-trash"></a>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="addContact" type="submit" class="btn btn-default fa fa-plus"></a>
+        </div>
+    </div>
+{{else}}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Please add a contact so we can ship your shirt to the right place.</h2>
+            <a href="addContact" type="submit" class="btn btn-default">Add Contact</a>
+        </div>
+    </div>
+{{/if}}
+<div class="row">
+    <hr/>
+</div>
+<!--loop through each contact in the contact array-->
+{{# if measurements}}
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Measurements</h3>
+            <table class="table table-hover">
+                {{# each measurements }}
+                    <tr>
+                        <td>{{ measurementDescription }}</td>
+                        <td>{{ fit }}</td>
+                        <td>{{ tuckPreference }}</td>
+                        <td>{{ shoulderSlope }}</td>
+                        <td>{{ units }}</td>
+                        <td>{{ napeOfNeckToButt }}</td>
+                        <td>{{ acrossBack }}</td>
+                        <td>{{ acrossShoulders }}</td>
+                        <td>{{ ballOfNeckToEdgeOfShoulders }}</td>
+                        <td>{{ shoulderToElbow }}</td>
+                        <td>{{ elbowToEdgeOfCuff }}</td>
+                        <td>{{ wrist }}</td>
+                        <td>{{ bicep }}</td>
+                        <td>{{ neck }}</td>
+                        <td>{{ chest }}</td>
+                        <td>{{ waist }}</td>
+                        <td>{{ hips }}</td>
+                        <td>
+                            <a href="editMeasurement/{{@index}}" type="submit" class="btn btn-default fa fa-pencil"></a>
+                            <a href="removeMeasurement/{{@index}}" type="submit" class="btn btn-default fa fa-trash"></a>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="addMeasurement" type="submit" class="btn btn-default fa fa-plus"></a>
+        </div>
+    </div>
+{{else}}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Please add a measurement set so we can tailor your shirt properly.</h2>
+            <a href="addMeasurement" type="submit" class="btn btn-default">Add Measurements</a>
+        </div>
+    </div>
+{{/if}}
+
+</form>
+
+
+
+

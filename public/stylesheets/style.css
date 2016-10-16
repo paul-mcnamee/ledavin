@@ -1,0 +1,31 @@
+.thumbnail img {
+    max-height: 350px;
+}
+
+.thumbnail .description {
+    color: darkgray;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.available-color-option {
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+}
+
+.unavailable-color-option {
+    width: 40px;
+    height: 40px;
+    border: 2px solid gray;
+}
+
+.product-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+}

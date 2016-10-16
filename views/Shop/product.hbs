@@ -1,0 +1,36 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ product.imagePath }}" alt="..." class="img-responsive">
+    </div>
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>{{ product.title }}</h2>
+                <p class="description">{{ product.description }}</p>
+            </div>
+        </div>
+        <div class="row">
+            {{# each product.colors.available}}
+                <div class="col-xs-2">
+                    <div class="available-color-option" style="background: {{this}}"></div>
+                    <br/>
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>${{ product.price }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/add-to-cart/{{product.id}}" class="btn btn-default" role="button">
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>

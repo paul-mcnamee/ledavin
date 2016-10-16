@@ -1,0 +1,137 @@
+Customer Store
+    do we need to change the theme?
+        - https://www.bootstrapcdn.com/bootswatch/
+
+    use SVG for all of the images and icons - https://css-tricks.com/lodge/svg/
+
+    add reactjs for better form submission experience??? -- might not be worth the time investment
+
+    make profile page better for mobile
+        - currently the measurements table looks like shit if the screen size is small
+
+    edit measurements page
+    edit contacts page
+    edit contacts and measurements on the cart page, currently the dropdowns are gross and we should show all the info anyhow before checkout is complete
+
+    products page
+        - add a zoom feature on images http://www.jqueryscript.net/zoom/Simple-jQuery-Magnifying-Glass-Image-Zoom-Plugin-magnify-js.html
+        - re-style
+        - add share buttons
+        - make the colors clickable and add fabric types
+            -- https://css-tricks.com/snippets/css/custom-radio-buttons/
+        - add shirt properties to each individual shirt
+                -- add type of fit, preference, shoulder slope to each individual shirt
+
+    cart
+        - add colors and fabric types
+
+    header
+        - breadcrumb links
+
+    index/shop
+        - add animation to make items fly up from bottom one at a time
+        - add filters for products
+        - add colors and fabric types
+
+    general styling
+        - hover animations for buttons
+        - change colors
+        - make all buttons rectangular and have a pixel border instead of fill
+
+    add input validation
+        - http://stackoverflow.com/questions/9967015/js-library-to-sanitize-data-got-from-user
+        - need to di this in middleware
+        - update quantity button -- currently if you make it like 9999999999 and then make it 0 it makes you have 0 items or potentially negative items if you do it with two different items...
+        - sanitize ALL text inputs
+        - add confirm password field on signup
+        - measurements page
+        - validate that the measurement and contact is complete prior to checking out
+
+    admin page
+        - add a new product
+        - add permissions to logins - admin, tailor, customer, savage
+        - check page permissions
+        - add / delete / update product
+
+    profile page
+        - add a default star to click for the preferred method -- only allow 1 preferred contact and measurement
+        - change password -- maybe just use the same method as password recovery, email them a link
+        - change contacts and measurements to use the same collapse stuff as the orders
+
+    logged out
+        - recover password -- verify emails are working after smtp server is alive
+
+    add discount codes specific to certain items
+        - show discount on individual item prices if the user expands the discount percentage
+
+    customer notifications
+        - add notification system to send updates and reminders
+
+    !!!!!!!!!unit tests for everything!!!!!!!! -- don't know what unit testing framework is packaged with express apps ...
+        -- https://glebbahmutov.com/blog/how-to-correctly-unit-test-express-server/
+        -- http://developers.redhat.com/blog/2016/03/15/test-driven-development-for-building-apis-in-node-js-and-express/
+        -- http://www.designsuperbuild.com/blog/unit_testing_controllers_in_express/
+        -- https://www.codementor.io/nodejs/tutorial/unit-testing-nodejs-tdd-mocha-sinon
+        -- http://stackoverflow.com/questions/9517880/how-does-one-unit-test-routes-with-express
+
+    make errors and other messages logged to page more uniform -- http://stackoverflow.com/questions/25480633/how-do-i-display-flash-message-without-page-refresh-using-express-and-connect-fl
+
+Order Management
+    Tailor Orders
+        -- item number
+        -- customer id
+        -- tailor id
+        -- item price (what price we pay the tailor)
+        -- barcode
+        -- item quantity
+        -- expected fabric amount
+        -- actual fabric amount
+        -- price per yard of fabric
+        -- labor rate
+        -- labor hours
+        -- expected ship date
+        -- actual ship date
+        -- tracking number
+        -- shipping destination
+
+    Order Relations?
+    - tailor order ID
+    - customer order ID
+
+Tailor Page
+    tailors
+        - name
+        - address
+        - production capacity (parts/day)
+        - fabric
+            -- fabric id
+            -- style
+            -- type
+            -- color
+            -- yards in stock
+        - labor rate
+        - amount of labor to produce 1 unit
+        - shipping
+            -- packaging materials
+            -- packaging materials cost
+            -- packaging labor
+            -- packaging labor rate
+            -- shipping rate
+    orders
+        - Tailor Orders
+
+Kickstarter landing page
+    http://getbootstrap.com/javascript/#carousel
+    - purpose
+    - about
+    - contact
+
+GENERAL / FOLLOWUPS:
+    Graphic Work:
+        - product images
+        - Logo
+        - Measurements Page
+            -- types of fit
+            -- image for each measurement
+
+    contact info for the site -- need someone to talk to on the phone
