@@ -9,7 +9,7 @@ var schema = new Schema({
     //as it stands we should only have 1 color and material per item but we might want more in the future
     colors: {type: Object, required: true, default: {available: ['red'], unavailable: ['pink', 'blue', 'green', 'peach']}},
     materials: {type: Object, required: true, default: {type: {available: ['cotton'], unavailable: ['wool', 'linen']}, amount: 5, units: 'yards'}},
-    materialPaths: {type: Object, required: true},
+    materialPaths: {type: Object, required: true}, //material image paths
     description: {type: String, required: true},
     price: {type: Number, required: true}
 });

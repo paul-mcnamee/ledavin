@@ -1,21 +1,18 @@
 
 <div class="row">
     <div class="col-md-6">
-        {{#each product.imagePaths}}
-            {{#if @first}}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <img src="{{ this }}" alt="..." class="img-responsive product-image">
-                    </div>
-                </div>
-            <div class="row">
-            {{else}}
+        <div class="row">
+            <div class="col-xs-12">
+                <img src="{{ product.imagePaths.[0] }}" alt="..." class="img-responsive product-image">
+            </div>
+        </div>
+        <div class="row">
+            {{#each product.imagePaths}}
                 <div class="col-xs-2">
                     <img src="{{this}}" alt="..."  class="img-responsive product-thumbnail"/>
                 </div>
-            {{/if}}
-        {{/each}}
-            </div>
+            {{/each}}
+        </div>
     </div>
 
     <div class="col-md-5">
