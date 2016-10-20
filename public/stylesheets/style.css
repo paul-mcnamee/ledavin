@@ -23,9 +23,18 @@
     border: 2px solid gray;
 }
 
-.product-image img {
+.product-image {
     display: block;
     max-width: 100%;
     height: auto;
-    max-height: 700px;
+    max-height: 600px;
+}
+
+.product-thumbnail {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+    padding:1px;
+    border:1px solid black;
 }

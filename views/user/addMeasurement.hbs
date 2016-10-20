@@ -3,13 +3,27 @@
     <!--TODO: maybe just add these as tooltips or something so they're not so obtrusive-->
     <div class="col-md-7 center">
         <div class="panel-group" id="accordion">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Shirt Measurements <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <img src="../../images/shirt_measurements.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Type of Fit <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     </h4>
                 </div>
-                <div id="collapse1" class="panel-collapse collapse in">
+                <div id="collapse1" class="panel-collapse collapse">
                     <div class="panel-body">
                         <img src="../../images/type_of_fit.png" class="img-responsive">
                     </div>
@@ -46,61 +60,11 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Shirt Measurements <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 
-                    </h4>
-                </div>
-                <div id="collapse4" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <img src="../../images/shirt_measurements.png" class="img-responsive">
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="col-md-5">
         <form action="/user/addMeasurement" method="post" id="new-contact-form">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="" for="measurementDescription">Description</label>
-                    <input type="text" id="measurementDescription" class="form-control" placeholder="Paul's Shirt" name="MeasurementDescription" required>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="fit">Type Of Fit</label>
-                    <select class="form-control" id="fit" name="Fit" required>
-                        <option>Regular</option>
-                        <option>Fitted</option>
-                        <option>Slim</option>
-                        <!--TODO: I have never seen Athletic as an option, we need to check with the tailors what they know as industry standard-->
-                        <option>Athletic</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="tuckPreference">Tuck Preference</label>
-                    <select class="form-control" id="tuckPreference" name="TuckPreference" required>
-                        <option>Tucked</option>
-                        <option>Un-Tucked</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="shoulderSlope">Shoulder Slope</label>
-                    <select class="form-control" id="shoulderSlope" name="ShoulderSlope" required>
-                        <option>Normal</option>
-                        <option>Sloping</option>
-                        <option>Square</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="units">Units</label>
-                    <select class="form-control" id="units" name="Units" required>
-                        <option>Inches</option>
-                        <option>Centimeters</option>
-                    </select>
-                </div>
-            </div>
             <div class="col-md-8">
                 <br/>
                 <div class="form-group">
@@ -152,6 +116,43 @@
                     <input type="number" id="hips" class="form-control" placeholder="12. Hips" name="Hips" step="0.1" min="0" required>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="" for="measurementDescription">Description</label>
+                    <input type="text" id="measurementDescription" class="form-control" placeholder="Paul's Shirt" name="MeasurementDescription" required>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="fit">Type Of Fit</label>
+                    <select class="form-control" id="fit" name="Fit" required>
+                        <option>Regular</option>
+                        <option>Fitted</option>
+                        <option>Slim</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="tuckPreference">Tuck Preference</label>
+                    <select class="form-control" id="tuckPreference" name="TuckPreference" required>
+                        <option>Tucked</option>
+                        <option>Un-Tucked</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="shoulderSlope">Shoulder Slope</label>
+                    <select class="form-control" id="shoulderSlope" name="ShoulderSlope" required>
+                        <option>Normal</option>
+                        <option>Sloping</option>
+                        <option>Square</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="units">Units</label>
+                    <select class="form-control" id="units" name="Units" required>
+                        <option>Inches</option>
+                        <option>Centimeters</option>
+                    </select>
+                </div>
+            </div>
+
             <hr>
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
             <button type="submit" class="btn btn-default">

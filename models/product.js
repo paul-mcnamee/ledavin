@@ -2,11 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-    imagePath: {type: String, required: true},
+    //TODO: we will have multiple images so this needs to be an array with the main image as the first element in the array
+    imagePaths: {type: Object, required: true},
     type: {type: String, required: false}, //shirt, pants, etc.
     title: {type: String, required: true},
-    colors: {type: Object, required: true, default: {available: ['red', 'blue', 'green'], unavailable: ['pink', 'peach']}},
-    material: {type: Object, required: true, default: {type: {available: ['cotton', 'linen'], unavailable: ['wool']}, amount: 5, units: 'yards'}},
+    //as it stands we should only have 1 color and material per item but we might want more in the future
+    colors: {type: Object, required: true, default: {available: ['red'], unavailable: ['pink', 'blue', 'green', 'peach']}},
+    materials: {type: Object, required: true, default: {type: {available: ['cotton'], unavailable: ['wool', 'linen']}, amount: 5, units: 'yards'}},
+    materialPaths: {type: Object, required: true},
     description: {type: String, required: true},
     price: {type: Number, required: true}
 });

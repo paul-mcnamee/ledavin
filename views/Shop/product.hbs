@@ -1,11 +1,23 @@
 
 <div class="row">
     <div class="col-md-6">
-        <img src="{{ product.imagePath }}" alt="..." class="img-responsive">
+        {{#each product.imagePaths}}
+            {{#if @first}}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <img src="{{ this }}" alt="..." class="img-responsive product-image">
+                    </div>
+                </div>
+            <div class="row">
+            {{else}}
+                <div class="col-xs-2">
+                    <img src="{{this}}" alt="..."  class="img-responsive product-thumbnail"/>
+                </div>
+            {{/if}}
+        {{/each}}
+            </div>
     </div>
-    <div class="col-md-1">
 
-    </div>
     <div class="col-md-5">
         <div class="row">
             <div class="col-xs-12">
@@ -13,14 +25,15 @@
                 <p class="description">{{ product.description }}</p>
             </div>
         </div>
-        <div class="row">
-            {{# each product.colors.available}}
-                <div class="col-xs-2">
-                    <div class="available-color-option" style="background: {{this}}"></div>
-                    <br/>
-                </div>
-            {{/each}}
-        </div>
+        <!--for now we are removing the colors from this page since products and colors will be 1:1-->
+        <!--<div class="row">-->
+            <!--{{# each product.colors.available}}-->
+                <!--<div class="col-xs-2">-->
+                    <!--<div class="available-color-option" style="background: {{this}}"></div>-->
+                    <!--<br/>-->
+                <!--</div>-->
+            <!--{{/each}}-->
+        <!--</div>-->
         <div class="row">
             <div class="col-xs-12">
                 <h2>${{ product.price }}</h2>

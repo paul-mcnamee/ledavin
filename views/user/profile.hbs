@@ -85,9 +85,17 @@
     <div class="row">
         <div class="col-xs-12">
             <h3>Contacts</h3>
-            <!--TODO: look at the addContact form for an example!!-->
-            <!--TODO: make this not visible by default, only show the fields when the user clicks the edit button-->
             <table class="table table-hover">
+                <thead>
+                <tr>
+                    <td>Description</td>
+                    <td>Name</td>
+                    <td>Phone Number</td>
+                    <td>Shipping Address</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>
                 {{#each contacts}}
                     <tr>
                         <td>
@@ -104,6 +112,8 @@
                         </td>
                         <td>
                             <a href="editContact/{{@index}}" type="submit" class="btn btn-default fa fa-pencil"></a>
+                        </td>
+                        <td>
                             <a href="removeContact/{{@index}}" type="submit" class="btn btn-default fa fa-trash"></a>
                         </td>
                     </tr>
@@ -133,12 +143,29 @@
         <div class="col-xs-12">
             <h3>Measurements</h3>
             <table class="table table-hover">
+                <thead>
+                <tr>
+                    <td>Description</td>
+                    <td>Units</td>
+                    <td>Neck to Butt</td>
+                    <td>Across Back</td>
+                    <td>Across Shoulders</td>
+                    <td>Ball of Neck to Shoulders</td>
+                    <td>Shoulder to Elbow</td>
+                    <td>Elbow to Cuff</td>
+                    <td>Wrist</td>
+                    <td>Bicep</td>
+                    <td>Neck</td>
+                    <td>Chest</td>
+                    <td>Waist</td>
+                    <td>Hips</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>
                 {{# each measurements }}
                     <tr>
                         <td>{{ measurementDescription }}</td>
-                        <td>{{ fit }}</td>
-                        <td>{{ tuckPreference }}</td>
-                        <td>{{ shoulderSlope }}</td>
                         <td>{{ units }}</td>
                         <td>{{ napeOfNeckToButt }}</td>
                         <td>{{ acrossBack }}</td>
@@ -154,6 +181,8 @@
                         <td>{{ hips }}</td>
                         <td>
                             <a href="editMeasurement/{{@index}}" type="submit" class="btn btn-default fa fa-pencil"></a>
+                        </td>
+                        <td>
                             <a href="removeMeasurement/{{@index}}" type="submit" class="btn btn-default fa fa-trash"></a>
                         </td>
                     </tr>
