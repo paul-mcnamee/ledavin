@@ -12,13 +12,48 @@ var Order = require('../models/order');
 router.get('/', function(req, res, next) {
     var successMsg = req.flash('success')[0];
     Product.find(function (err, docs) {
-        //3 products in a row on the page
+
+        //break the products up into chunks of 3 to display on the page
         var productChunks = [];
         var chunkSize = 3;
         for (var i = 0; i < docs.length; i += chunkSize){
             productChunks.push(docs.slice(i, i + chunkSize));
         }
-        res.render('shop/index', { title: 'Le Davin Custom Clothier', products: productChunks, successMsg: successMsg, noMessage: !successMsg });
+
+        var materialsToFilter = [];
+        var colorsToFilter = [];
+
+        //loop through the products to find filter info
+        for (var k=0; k < docs.length; k++){
+
+            //find a unique list of materials in the products to filter by
+            var materialPaths = docs[k].materialPaths;
+            for (var j=0; j < materialPaths.length; j++)
+            {
+                if (!isInArray(docs[k].materialPaths[j], materialsToFilter))
+                {
+                    materialsToFilter.push(docs[k].materialPaths[j])
+                }
+            }
+
+            //find a unique list of colors in the products to filter by
+            var colors = docs[k].colors;
+            for (var l=0; l < colors.length; l++){
+                if (!isInArray(docs[k].colors[l], colorsToFilter))
+                {
+                    colorsToFilter.push(docs[k].colors[l])
+                }
+            }
+        }
+
+        res.render('shop/index', {
+            title: 'Le Davin Custom Clothier',
+            products: productChunks,
+            materialsToFilter: materialsToFilter,
+            colorsToFilter: colorsToFilter,
+            successMsg: successMsg,
+            noMessage: !successMsg
+        });
     });
 });
 
@@ -304,4 +339,8 @@ function isLoggedIn(req, res, next){
     //save the url the user came from
     req.session.oldUrl = req.url;
     res.redirect('/user/signin');
+}
+
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
 }

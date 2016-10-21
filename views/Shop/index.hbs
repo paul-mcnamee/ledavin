@@ -8,38 +8,105 @@
 <!--filters-->
 <div class="row">
     <div class="col-sm-12">
+        <ul class="nav navbar-nav navbar-right">
 
+            <!--Colors Filter Dropdown-->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Colors <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    {{# each colorsToFilter}}
+                        <li>
+                            <div class="center-block">
+                                <p class="text-center">
+                                    <input type="checkbox" class="img-rounded filter-color" id="filter-color-{{this}}" value="{{this}}">
+                                    <label for="filter-color-{{this}}" class="filter-value">
+                                        <span class="filter-color" style="background: {{this}}"></span>
+                                    </label>
+                                </p>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                    {{/each}}
+                </ul>
+            </li>
+
+            <!--Pattern Filter Dropdown-->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Patterns <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    {{# each materialsToFilter}}
+                        <li>
+                            <div class="center-block">
+                                <p class="text-center">
+                                    <input type="checkbox" class="img-rounded filter-color" id="filter-color-{{this}}" value="{{this}}">
+                                    <label for="filter-color-{{this}}" class="filter-value">
+                                        <img src="{{this}}" alt="..." class="filter-material img-rounded"/>
+                                    </label>
+                                </p>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                    {{/each}}
+                </ul>
+            </li>
+
+            <!--Price Filter Dropdown-->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Price <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li>
+                        <div class="center-block">
+                            <p class="text-center">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i> Low to High
+                            </p>
+                        </div>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <div class="center-block">
+                            <p class="text-center">
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i> High to Low
+                            </p>
+                        </div>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </div>
 
 <!--loop through the items in the product array-->
 <div class="row">
-{{# each products }}
-    <div class="row">
-        {{# each this}}
-            <div class="col-md-4">
-                <div class="well">
-                    <div class="thumbnail">
-                        <a href="/product/{{this.id}}">
-                            <img src="{{ this.imagePaths.[0] }}" alt="..." class="img-responsive">
-                        </a>
+    {{# each products }}
+        <div class="row">
+            {{# each this}}
+                <div class="col-md-4">
+                    <div class="well">
+                        <div class="thumbnail">
+                            <a href="/product/{{this.id}}">
+                                <div>
+                                    <img src="{{ this.imagePaths.[0] }}" alt="..." class="img-responsive">
+                                    <img src="{{this.materialPaths.[0]}}" alt="..." class="img-circle product-material"/>
+                                </div>
+                            </a>
 
-                        <div class="caption">
-                            <h3>{{ this.title }}</h3>
+                            <div class="caption">
+                                <h3>{{ this.title }}</h3>
 
-                            <p class="description">{{ this.description }}</p>
+                                <p class="description">{{ this.description }}</p>
 
-                            <div class="clearfix">
-                                <div class="price pull-left">${{ this.price }}</div>
-                                <a href="/add-to-cart/{{this.id}}" class="btn btn-default pull-right" role="button">
-                                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Add to Cart</a>
+                                <div class="clearfix">
+                                    <div class="price pull-left">${{ this.price }}</div>
+                                    <a href="/add-to-cart/{{this.id}}" class="btn btn-default pull-right" role="button">
+                                        <i class="fa fa-cart-plus" aria-hidden="true"></i> Add to Cart</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {{/each}}
-    </div>
-{{/each}}
+            {{/each}}
+        </div>
+    {{/each}}
 </div>
 
