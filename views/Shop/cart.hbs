@@ -11,8 +11,9 @@
             {{# each products}}
                 <div class="col-md-12">
                     <div class="well">
-                        <div class="thumbnail">
-                            <img src="{{ this.item.imagePaths.[0] }}" alt="..." class="img-responsive">
+                        <div class="">
+                            <img src="{{this.item.materials.[0].link}}" alt="..." class="img-circle product-material"/>
+                            <img src="{{ this.item.imagePaths.[0] }}" alt="..." class="img-responsive thumbnail">
                         </div>
                         <h2>{{ this.item.title }}</h2>
                         <p> {{ this.item.description }}</p>
@@ -36,6 +37,7 @@
                                     </div>
                                 </div>
                                 <script type="text/javascript">
+                                    //TODO: probably should just use jquery selectors so we don't have a ton of these if someone had like 10 items
                                     //this updates the new quantity for the update quantity button
                                     var link = document.getElementById("{{this.item._id}}_updateQty");
                                     var input = document.getElementById("{{this.item._id}}");
