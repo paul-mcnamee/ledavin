@@ -13,12 +13,17 @@ router.get('/', function(req, res, next) {
     var successMsg = req.flash('success')[0];
     Product.find(function (err, docs) {
 
-        //break the products up into chunks of 3 to display on the page
-        var productChunks = [];
-        var chunkSize = 3;
-        for (var i = 0; i < docs.length; i += chunkSize){
-            productChunks.push(docs.slice(i, i + chunkSize));
+        var products = [];
+        for (var p=0; p < docs.length; p++){
+            products.push(docs[p])
         }
+
+        //break the products up into chunks of 3 to display on the page
+        //var productChunks = [];
+        //var chunkSize = 3;
+        //for (var i = 0; i < docs.length; i += chunkSize){
+        //    productChunks.push(docs.slice(i, i + chunkSize));
+        //}
 
         var materialsToFilter = [];
         var colorsToFilter = [];
@@ -27,12 +32,12 @@ router.get('/', function(req, res, next) {
         for (var k=0; k < docs.length; k++){
 
             //find a unique list of materials in the products to filter by
-            var materialPaths = docs[k].materialPaths;
+            var materialPaths = docs[k].materials;
             for (var j=0; j < materialPaths.length; j++)
             {
-                if (!isInArray(docs[k].materialPaths[j], materialsToFilter))
+                if (!isInArray(docs[k].materials[j].link, materialsToFilter))
                 {
-                    materialsToFilter.push(docs[k].materialPaths[j])
+                    materialsToFilter.push([docs[k].materials[j].name, docs[k].materials[j].link])
                 }
             }
 
@@ -48,7 +53,7 @@ router.get('/', function(req, res, next) {
 
         res.render('shop/index', {
             title: 'Le Davin Custom Clothier',
-            products: productChunks,
+            products: products,
             materialsToFilter: materialsToFilter,
             colorsToFilter: colorsToFilter,
             successMsg: successMsg,

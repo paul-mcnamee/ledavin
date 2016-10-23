@@ -7,9 +7,8 @@ var schema = new Schema({
     type: {type: String, required: false}, //shirt, pants, etc.
     title: {type: String, required: true},
     //as it stands we should only have 1 color and material per item but we might want more in the future
-    colors: {type: Object, required: true, default: {available: ['red'], unavailable: ['pink', 'blue', 'green', 'peach']}},
-    materials: {type: Object, required: true, default: {type: {available: ['cotton'], unavailable: ['wool', 'linen']}, amount: 5, units: 'yards'}},
-    materialPaths: {type: Object, required: true}, //material image paths
+    colors: {type: Array, required: true, default: ['red']},
+    materials: {type: Array, required: true, default: [{ name: 'cotton', link: 'http://3v6x691yvn532gp2411ezrib.wpengine.netdna-cdn.com/wp-content/uploads/sites/default/files/20130830-adc.png'}]},
     description: {type: String, required: true},
     price: {type: Number, required: true}
 });

@@ -1,5 +1,7 @@
 .thumbnail img {
-    max-height: 350px;
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 .thumbnail .description {
@@ -25,6 +27,9 @@
 
 .product-image {
     display: block;
+    position: relative;
+    top: 0;
+    left: 0;
     max-width: 100%;
     height: auto;
     max-height: 600px;
@@ -41,15 +46,22 @@
 
 .product-material {
     position: absolute;
+    display: inline-block;
     width: 80px;
     height: 80px;
-    top: 290px;
-    left: 60px;
-    border:1px solid black;
+    border: 2px solid black;
+}
+
+.large-product-material {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 75%;
+    left: 15%;
+    border: 2px solid black;
 }
 
 .filter-material {
-    display: inline-block;
     width: 25px;
     height: 25px;
     border: 1px solid black;
@@ -61,4 +73,17 @@
     width: 25px;
     height: 25px;
     border: 1px solid black;
+}
+
+.product-container {
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%
+}
+
+.product{
+    width: 410px;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
 }
