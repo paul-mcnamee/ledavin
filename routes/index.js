@@ -238,6 +238,34 @@ router.get('/cart/apply-coupon/:code', function(req, res, next){
     });
 });
 
+router.post('/cart', isLoggedIn, function(req, res, next) {
+    if (!req.session.cart){
+        return res.render('shop/cart', {products: null});
+    }
+
+    var cart = req.session.cart;
+    var measurements = req.user.measurements;
+    var contacts = req.user.contacts;
+
+    var itemCounter = 0;
+    for (var item in cart.items){
+        if (cart.items.hasOwnProperty(item)){
+            cart.items[item].measurements = {
+                //not sure how to get the req.item.shoulderSlope + itemId
+                shoulderSlope: req.body.ShoulderSlope[itemCounter],
+                tuckPreference: req.body.TuckPreference[itemCounter],
+                fit: req.body.Fit[itemCounter]
+            };
+        }
+        itemCounter++;
+    }
+
+    //update the cart so the new measurements are saved
+    req.session.cart = cart;
+
+    res.redirect('/checkout')
+});
+
 router.get('/checkout', isLoggedIn, function(req, res, next) {
     if (!req.session.cart){
         return res.redirect('shop/cart', {products: null});
@@ -246,6 +274,7 @@ router.get('/checkout', isLoggedIn, function(req, res, next) {
     //TODO: check for measurements and shipping contact
     var cart = new Cart(req.session.cart ? req.session.cart : {});
     var errMsg = req.flash('error')[0];
+
 
     res.render('shop/checkout', {
         total: cart.totalPrice,

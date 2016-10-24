@@ -6,277 +6,339 @@
 
 {{# if products}}
     <div class="row">
-    <div class="col-md-7">
-        <div class="row">
-            {{# each products}}
-                <div class="col-md-12">
-                    <div class="well">
-                        <div class="">
-                            <img src="{{this.item.materials.[0].link}}" alt="..." class="img-circle product-material"/>
-                            <img src="{{ this.item.imagePaths.[0] }}" alt="..." class="img-responsive thumbnail">
-                        </div>
-                        <h2>{{ this.item.title }}</h2>
-                        <p> {{ this.item.description }}</p>
-                        <div class="form-group">
-                            <form class="form-inline" action="">
-                                <div class="form-group">
-                                    <div class="row col-sm-offset-1">
-                                        <label>Quantity</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="number" min="0" max="5000" class="form-control" id="{{this.item._id}}" value="{{ this.qty }}">
-                                        </div>
 
-                                        <div class="col-sm-6">
-                                            <a href="/cart/update-item-in-cart/{{this.item._id}}/{{ this.qty }}" class="btn btn-default pull-right"
-                                               role="button" id="{{this.item._id}}_updateQty">
-                                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Update
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script type="text/javascript">
-                                    //TODO: probably should just use jquery selectors so we don't have a ton of these if someone had like 10 items
-                                    //this updates the new quantity for the update quantity button
-                                    var link = document.getElementById("{{this.item._id}}_updateQty");
-                                    var input = document.getElementById("{{this.item._id}}");
-
-                                    //if the quantity input box changes then update the link to reflect the new quantity
-                                    input.onchange = input.onkeyup = input.changed = function() {
-                                        var link = document.getElementById("{{this.item._id}}_updateQty");
-                                        var to = link.href.lastIndexOf('/') + 1;
-
-                                        if (!this.value){
-                                            this.value = 0;
-                                        }
-
-                                        link.href = link.href.substr(0 , to) + this.value;
-                                    };
-                                </script>
-                            </form>
-
-                        </div>
-                        <h4>
-                            Total: ${{ this.price }}
-
-                        </h4>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-    </div>
     <div class="col-md-5">
-    {{# if measurements}}
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="collapse in">
-                    <div class="row">
-                        <h4>
-                            <i data-toggle="tooltip" data-placement="bottom" title="These measurements apply to each item in the cart. If you want to apply measurements to individual items please submit separate orders for each item.">
-                                Measurements: {{ selectedMeasurements.measurementDescription }} <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            </i>
-                        </h4>
-                    </div>
-                    <a href="#changeMeasurements" class="btn btn-default" data-toggle="collapse"><i class="fa fa-gears"></i>  Change Measurements</a>
-                </div>
-                <br>
-                <div class="collapse" id="changeMeasurements">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group dropdown">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="measurement" name="Measurement" required>
-                                            {{# each measurements}}
-                                                <option value="{{@index}}">{{measurementDescription}}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="/cart/updateMeasurement/0" type="submit" class="btn btn-default" id="updateMeasurementButton">
-                                            Update <i class="fa fa-chevron-right"></i>
-                                        </a>
-                                    </div>
-                                    <script type="text/javascript">
-                                        //this updates the new quantity for the update quantity button
-                                        var link = document.getElementById("updateMeasurementButton");
-                                        var input = document.getElementById("measurement");
-
-                                        //if the quantity input box changes then update the link to reflect the new quantity
-                                        input.onchange = input.onkeyup = input.changed = function() {
-                                            var link = document.getElementById("updateMeasurementButton");
-                                            var to = link.href.lastIndexOf('/') + 1;
-
-                                            if (!this.value){
-                                                this.value = 0;
-                                            }
-
-                                            link.href = link.href.substr(0 , to) + this.value;
-                                        };
-                                    </script>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a href="/user/addMeasurement" type="submit" class="btn btn-default">
-                                        <i class="fa fa-plus"></i> Add New Measurements
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{ else }}
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>Please add a measurement set.</h3>
-                <a href="/user/addMeasurement" type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Add Measurements
-                </a>
-            </div>
-        </div>
-    {{/if}}
-    <hr/>
-    {{# if contacts}}
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="collapse in">
-                    <div class="row">
-                        <h4>
-                            <i data-toggle="tooltip" data-placement="bottom" title="This contact applies to each item in the cart for your shipping address. If you want to apply a different contact to individual items please submit separate orders for each item.">
-                                Shipping Contact: {{ selectedContact.description }} <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            </i>
-                        </h4>
-                    </div>
-                    <a href="#changeContact" class="btn btn-default" data-toggle="collapse"><i class="fa fa-gears"></i> Change Contact</a>
-                </div>
-                <br>
-                <div class="collapse" id="changeContact">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group dropdown">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="contact" name="Contact" required>
-                                            {{# each contacts}}
-                                                <option value="{{@index}}">{{description}}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="/cart/updateContact/0" type="submit" class="btn btn-default" id="updateContactButton">
-                                            Update <i class="fa fa-chevron-right"></i>
-                                        </a>
-                                    </div>
-                                    <script type="text/javascript">
-                                        //this updates the new quantity for the update quantity button
-                                        var link = document.getElementById("updateContactButton");
-                                        var input = document.getElementById("contact");
-
-                                        //if the quantity input box changes then update the link to reflect the new quantity
-                                        input.onchange = input.onkeyup = input.changed = function() {
-                                            var link = document.getElementById("updateContactButton");
-                                            var to = link.href.lastIndexOf('/') + 1;
-
-                                            if (!this.value){
-                                                this.value = 0;
-                                            }
-
-                                            link.href = link.href.substr(0 , to) + this.value;
-                                        };
-                                    </script>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a href="/user/addContact" type="submit" class="btn btn-default">
-                                        <i class="fa fa-plus"></i> Add New Contact
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{ else }}
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>Please add a contact.</h3>
-                <a href="/user/addContact" type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Add Contact
-                </a>
-            </div>
-        </div>
-    {{/if}}
-    <hr/>
-    <div class="row">
-        <div class="col-xs-12">
+        {{# if measurements}}
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="couponCode" class="sr-only">Coupon Code</label>
-                </div>
-            </div>
-            <div class="row">
-                <form action="" method="post">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            {{# if coupons}}
-                                {{# each coupons}}
-                                    <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="{{ this.couponCode }}"/>
-                                {{/each}}
-                            {{else}}
-                                <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="COUPON CODE"/>
-                            {{/if}}
+                    <div class="collapse in">
+                        <div class="row">
+                            <h4>
+                                <i data-toggle="tooltip" data-placement="bottom" title="These measurements apply to each item in the cart. If you want to apply measurements to individual items please submit separate orders for each item.">
+                                    Measurements: {{ selectedMeasurements.measurementDescription }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </i>
+                            </h4>
+                        </div>
+                        <a href="#changeMeasurements" class="btn btn-default" data-toggle="collapse"><i class="fa fa-gears"></i>  Change Measurements</a>
+                    </div>
+                    <br>
+                    <div class="collapse" id="changeMeasurements">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group dropdown">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="measurement" name="Measurement" required>
+                                                {{# each measurements}}
+                                                    <option value="{{@index}}">{{measurementDescription}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/cart/updateMeasurement/0" type="submit" class="btn btn-default" id="updateMeasurementButton">
+                                                Update <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                        <script type="text/javascript">
+                                            //this updates the new quantity for the update quantity button
+                                            var link = document.getElementById("updateMeasurementButton");
+                                            var input = document.getElementById("measurement");
+
+                                            //if the quantity input box changes then update the link to reflect the new quantity
+                                            input.onchange = input.onkeyup = input.changed = function() {
+                                                var link = document.getElementById("updateMeasurementButton");
+                                                var to = link.href.lastIndexOf('/') + 1;
+
+                                                if (!this.value){
+                                                    this.value = 0;
+                                                }
+
+                                                link.href = link.href.substr(0 , to) + this.value;
+                                            };
+                                        </script>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="/user/addMeasurement" type="submit" class="btn btn-default">
+                                            <i class="fa fa-plus"></i> Add New Measurements
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <a href="/cart/apply-coupon/NONE" class="btn btn-default pull-left" role="button" id="applyCoupon">
-                            <i class="fa fa-money" aria-hidden="true"></i> Apply Coupon
-                        </a>
-                    </div>
-                </form>
-                <!--TODO: this could probably be replaced when we change to use angular on the front end-->
-                <script type="text/javascript">
-                    //this updates the new quantity for the update quantity button
-                    var link = document.getElementById("applyCoupon");
-                    var input = document.getElementById("couponCode");
-
-                    //if the quantity input box changes then update the link to reflect the new quantity
-                    input.onchange = input.onkeyup = input.changed = function() {
-                        var link = document.getElementById("applyCoupon");
-                        var to = link.href.lastIndexOf('/') + 1;
-
-                        if (!this.value){
-                            this.value = "";
-                        }
-
-                        link.href = link.href.substr(0 , to) + this.value;
-                    };
-                </script>
-            </div>
-            {{# if coupons}}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>Discount: ${{ this.totalDiscount }}</h3>
-                    </div>
                 </div>
-            {{/if}}
-            <hr>
+            </div>
+        {{ else }}
             <div class="row">
-                <div class="col-sm-12">
-                    <h3>Total: ${{ totalPrice }}</h3>
-                    <a href="/checkout" type="button" class="btn btn-default">
-                        <i class="fa fa-credit-card" aria-hidden="true"></i> Checkout
+                <div class="col-xs-12">
+                    <h3>Please add a measurement set.</h3>
+                    <a href="/user/addMeasurement" type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Add Measurements
                     </a>
                 </div>
             </div>
-        </div>
+        {{/if}}
+        <hr/>
+        {{# if contacts}}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="collapse in">
+                        <div class="row">
+                            <h4>
+                                <i data-toggle="tooltip" data-placement="bottom" title="This contact applies to each item in the cart for your shipping address. If you want to apply a different contact to individual items please submit separate orders for each item.">
+                                    Shipping Contact: {{ selectedContact.description }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </i>
+                            </h4>
+                        </div>
+                        <a href="#changeContact" class="btn btn-default" data-toggle="collapse"><i class="fa fa-gears"></i> Change Contact</a>
+                    </div>
+                    <br>
+                    <div class="collapse" id="changeContact">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group dropdown">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="contact" name="Contact" required>
+                                                {{# each contacts}}
+                                                    <option value="{{@index}}">{{description}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="/cart/updateContact/0" type="submit" class="btn btn-default" id="updateContactButton">
+                                                Update <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                        <script type="text/javascript">
+                                            //this updates the new quantity for the update quantity button
+                                            var link = document.getElementById("updateContactButton");
+                                            var input = document.getElementById("contact");
+
+                                            //if the quantity input box changes then update the link to reflect the new quantity
+                                            input.onchange = input.onkeyup = input.changed = function() {
+                                                var link = document.getElementById("updateContactButton");
+                                                var to = link.href.lastIndexOf('/') + 1;
+
+                                                if (!this.value){
+                                                    this.value = 0;
+                                                }
+
+                                                link.href = link.href.substr(0 , to) + this.value;
+                                            };
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="/user/addContact" type="submit" class="btn btn-default">
+                                            <i class="fa fa-plus"></i> Add New Contact
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{ else }}
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Please add a contact.</h3>
+                    <a href="/user/addContact" type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Add Contact
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+        <hr/>
+
     </div>
+
+    <!--Products-->
+    <div class="col-md-7">
+        <form action="/cart" method="POST" id="cartSubmit" name="CartSubmit">
+            {{# each products}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="well">
+                            <div class="">
+                                <img src="{{this.item.materials.[0].link}}" alt="..." class="img-circle product-material"/>
+                                <img src="{{ this.item.imagePaths.[0] }}" alt="..." class="img-responsive" style="max-height: 600px;">
+                            </div>
+                            <h2>{{ this.item.title }}</h2>
+                            <p> {{ this.item.description }}</p>
+
+                            <hr/>
+
+                            <div class="row col-sm-offset-1">
+                                <label for="{{this.item._id}}">Quantity</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="number" min="0" max="5000" class="form-control" id="{{this.item._id}}" value="{{ this.qty }}">
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="/cart/update-item-in-cart/{{this.item._id}}/{{ this.qty }}" class="btn btn-default pull-right"
+                                       role="button" id="{{this.item._id}}_updateQty">
+                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Update
+                                    </a>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                //TODO: probably should just use jquery selectors so we don't have a ton of these if someone had like 10 items
+                                //this updates the new quantity for the update quantity button
+                                var link = document.getElementById("{{this.item._id}}_updateQty");
+                                var input = document.getElementById("{{this.item._id}}");
+
+                                //if the quantity input box changes then update the link to reflect the new quantity
+                                input.onchange = input.onkeyup = input.changed = function() {
+                                    var link = document.getElementById("{{this.item._id}}_updateQty");
+                                    var to = link.href.lastIndexOf('/') + 1;
+
+                                    if (!this.value){
+                                        this.value = 0;
+                                    }
+
+                                    link.href = link.href.substr(0 , to) + this.value;
+                                };
+                            </script>
+
+                            <hr/>
+
+                            <!--Per-Shirt Measurements-->
+                            <div class="row">
+                                <div class="col-sm-4 col-offset-sm-1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="" for="fit{{this.item._id}}">Type Of Fit</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group dropdown">
+                                                <select class="form-control" id="fit{{this.item._id}}" name="Fit" required>
+                                                    <option value="Regular">Regular</option>
+                                                    <option value="Fitted">Fitted</option>
+                                                    <option value="Slim">Slim</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-offset-sm-1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="" for="tuckPreference{{this.item._id}}">Tuck Preference</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group dropdown">
+                                                <select class="form-control" id="tuckPreference{{this.item._id}}" name="TuckPreference" required>
+                                                    <option value="Tucked">Tucked</option>
+                                                    <option value="Un-Tucked">Un-Tucked</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-offset-sm-1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="" for="shoulderSlope{{this.item._id}}">Shoulder Slope</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group dropdown">
+                                                <select class="form-control" id="shoulderSlope{{this.item._id}}" name="ShoulderSlope" required>
+                                                    <option value="Normal">Normal</option>
+                                                    <option value="Sloping">Sloping</option>
+                                                    <option value="Square">Square</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <!--total price-->
+                            <h4>
+                                Total: ${{ this.price }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="couponCode" class="sr-only">Coupon Code</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form action="" method="post">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{# if coupons}}
+                                        {{# each coupons}}
+                                            <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="{{ this.couponCode }}"/>
+                                        {{/each}}
+                                    {{else}}
+                                        <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="COUPON CODE"/>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="/cart/apply-coupon/NONE" class="btn btn-default pull-left" role="button" id="applyCoupon">
+                                    <i class="fa fa-money" aria-hidden="true"></i> Apply Coupon
+                                </a>
+                            </div>
+                        </form>
+                        <!--TODO: this could probably be replaced when we change to use angular on the front end-->
+                        <script type="text/javascript">
+                            //this updates the new quantity for the update quantity button
+                            var link = document.getElementById("applyCoupon");
+                            var input = document.getElementById("couponCode");
+
+                            //if the quantity input box changes then update the link to reflect the new quantity
+                            input.onchange = input.onkeyup = input.changed = function() {
+                                var link = document.getElementById("applyCoupon");
+                                var to = link.href.lastIndexOf('/') + 1;
+
+                                if (!this.value){
+                                    this.value = "";
+                                }
+
+                                link.href = link.href.substr(0 , to) + this.value;
+                            };
+                        </script>
+                    </div>
+                    {{# if coupons}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3>Discount: ${{ this.totalDiscount }}</h3>
+                            </div>
+                        </div>
+                    {{/if}}
+                    <hr>
+
+                    <h3>Total: ${{ totalPrice }}</h3>
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-credit-card" aria-hidden="true"></i> Checkout
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
     </div>
 

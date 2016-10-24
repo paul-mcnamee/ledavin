@@ -20,7 +20,16 @@ module.exports = function Cart(oldCart) {
 
         //if there is no item, add the new item
         if (!storedItem){
-            storedItem = this.items[itemId] = {item: item, qty: 0, price: 0};
+            storedItem = this.items[itemId] = {
+                item: item,
+                qty: 0,
+                price: 0,
+                measurements: {
+                    shoulderSlope: 'Normal',
+                    tuckPreference: 'Tucked',
+                    fit: 'Normal'
+                }
+            };
         }
 
         //update the new quantity and price of the items in the cart
