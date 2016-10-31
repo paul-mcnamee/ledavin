@@ -47,31 +47,31 @@
 .product-material {
     position: absolute;
     display: inline-block;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border: 2px solid black;
 }
 
 .large-product-material {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     top: 75%;
     left: 15%;
     border: 2px solid black;
 }
 
 .filter-material {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     border: 1px solid black;
     vertical-align: inherit;
 }
 
 .filter-color{
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     border: 1px solid black;
 }
 

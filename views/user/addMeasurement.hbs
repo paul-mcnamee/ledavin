@@ -65,8 +65,19 @@
     </div>
     <div class="col-md-5">
         <form action="/user/addMeasurement" method="post" id="new-contact-form">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <br/>
+                <div class="form-group">
+                    <label class="" for="measurementDescription">Description</label>
+                    <input type="text" id="measurementDescription" class="form-control" placeholder="Paul's Shirt" name="MeasurementDescription" required>
+                </div>
+                <div class="form-group dropdown">
+                    <label class="" for="units">Units</label>
+                    <select class="form-control" id="units" name="Units" required>
+                        <option>Inches</option>
+                        <option>Centimeters</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label class="sr-only" for="napeOfNeckToButt">1. Nape Of Neck To Butt</label>
                     <input type="number" id="napeOfNeckToButt" class="form-control" placeholder="1. Nape Of Neck To Butt" name="NapeOfNeckToButt" step="0.1" min="0" required>
@@ -115,49 +126,11 @@
                     <label class="sr-only" for="hips">12. Hips</label>
                     <input type="number" id="hips" class="form-control" placeholder="12. Hips" name="Hips" step="0.1" min="0" required>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label class="" for="measurementDescription">Description</label>
-                    <input type="text" id="measurementDescription" class="form-control" placeholder="Paul's Shirt" name="MeasurementDescription" required>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="fit">Type Of Fit</label>
-                    <select class="form-control" id="fit" name="Fit" required>
-                        <option>Regular</option>
-                        <option>Fitted</option>
-                        <option>Slim</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="tuckPreference">Tuck Preference</label>
-                    <select class="form-control" id="tuckPreference" name="TuckPreference" required>
-                        <option>Tucked</option>
-                        <option>Un-Tucked</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="shoulderSlope">Shoulder Slope</label>
-                    <select class="form-control" id="shoulderSlope" name="ShoulderSlope" required>
-                        <option>Normal</option>
-                        <option>Sloping</option>
-                        <option>Square</option>
-                    </select>
-                </div>
-                <div class="form-group dropdown">
-                    <label class="" for="units">Units</label>
-                    <select class="form-control" id="units" name="Units" required>
-                        <option>Inches</option>
-                        <option>Centimeters</option>
-                    </select>
-                </div>
-            </div>
-
-            <hr>
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
             <button type="submit" class="btn btn-default">
                 <i class="fa fa-plus"></i> Add Measurements
             </button>
+            </div>
         </form>
     </div>
 </div>

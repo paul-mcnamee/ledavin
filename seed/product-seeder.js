@@ -19,7 +19,7 @@ var products = [
         title: 'Boring Shirt Title',
         description: 'Sustainable humblebrag church-key, DIY mixtape everyday carry street art pug cliche lomo organic. Sustainable craft beer affogato before they sold out. Echo park artisan lumbersexual PBR&B',
         price: 10,
-        colors: ['purple'],
+        colors: ['black'],
         materials: [{name: 'metal', link:'http://previews.123rf.com/images/traffico/traffico1207/traffico120700005/14387132-Seamless-triangle-pattern-Stock-Vector-geometric.jpg'}]
     }),
     new Product({

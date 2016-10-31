@@ -14,6 +14,7 @@ var MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
 var validator = require('express-validator');
+var cartRoutes = require('./routes/cart');
 
 var app = express();
 
@@ -57,6 +58,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/user', userRoutes);
+app.use('/cart', cartRoutes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
