@@ -9,6 +9,7 @@ var async = require('async');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var crypto = require('crypto');
+var Common = require('../routes/common.js');
 
 
 var csrfProtection = csrf();
@@ -22,7 +23,7 @@ router.use(function (req, res, next){
 var User = require('../models/user.js');
 
 //protect route for logged in page
-router.get('/profile', isLoggedIn, function(req, res, next) {
+router.get('/profile', Common.isLoggedIn, function(req, res, next) {
     var messages = req.flash('error');
 
     if (!req.user){
@@ -54,7 +55,7 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
     });
 });
 
-router.post('/addMeasurement', isLoggedIn, function(req, res, next){
+router.post('/addMeasurement', Common.isLoggedIn, function(req, res, next){
     var messages = req.flash('error');
     var user = User(req.user);
     if (!req.user){
@@ -95,7 +96,7 @@ router.post('/addMeasurement', isLoggedIn, function(req, res, next){
     //res.render('user/profile', {csrfToken: req.csrfToken(), email: email, measurements: measurements, contacts: contacts, messages: messages, hasErrors: messages.length > 0});
 });
 
-router.get('/addMeasurement', isLoggedIn, function(req, res, next){
+router.get('/addMeasurement', Common.isLoggedIn, function(req, res, next){
     if (!req.user){
         return res.redirect('/signin');
     }
@@ -103,7 +104,7 @@ router.get('/addMeasurement', isLoggedIn, function(req, res, next){
     res.render('user/addMeasurement', {csrfToken: req.csrfToken()});
 });
 
-router.get('/removeMeasurement/:id', isLoggedIn, function(req, res, next) {
+router.get('/removeMeasurement/:id', Common.isLoggedIn, function(req, res, next) {
     var messages = req.flash('error');
     var user = User(req.user);
     if (!req.user){
@@ -122,7 +123,7 @@ router.get('/removeMeasurement/:id', isLoggedIn, function(req, res, next) {
     //res.render('user/profile', {csrfToken: req.csrfToken(), email: email, measurements: measurements, contacts: contacts, messages: messages, hasErrors: messages.length > 0});
 });
 
-router.get('/addContact', isLoggedIn, function(req, res, next){
+router.get('/addContact', Common.isLoggedIn, function(req, res, next){
     if (!req.user){
         return res.redirect('/signin');
     }
@@ -130,7 +131,7 @@ router.get('/addContact', isLoggedIn, function(req, res, next){
     res.render('user/addContact', {csrfToken: req.csrfToken()});
 });
 
-router.get('/removeContact/:id', isLoggedIn, function(req, res, next) {
+router.get('/removeContact/:id', Common.isLoggedIn, function(req, res, next) {
     var messages = req.flash('error');
     var user = User(req.user);
     if (!req.user){
@@ -149,7 +150,7 @@ router.get('/removeContact/:id', isLoggedIn, function(req, res, next) {
     //res.render('user/profile', {csrfToken: req.csrfToken(), email: email, measurements: measurements, contacts: contacts, messages: messages, hasErrors: messages.length > 0});
 });
 
-router.post('/addContact', isLoggedIn, function(req, res, next){
+router.post('/addContact', Common.isLoggedIn, function(req, res, next){
     var messages = req.flash('error');
     var user = User(req.user);
     if (!req.user){
@@ -180,13 +181,13 @@ router.post('/addContact', isLoggedIn, function(req, res, next){
     //res.render('user/profile', {csrfToken: req.csrfToken(), email: email, measurements: measurements, contacts: contacts, messages: messages, hasErrors: messages.length > 0});
 });
 
-router.get('/logout', isLoggedIn, function(req, res, next){
+router.get('/logout', Common.isLoggedIn, function(req, res, next){
     req.logout();
     res.redirect('/');
 });
 
 //other routes are for not logged in
-router.use('/', notLoggedIn, function(req, res, next){
+router.use('/', Common.notLoggedIn, function(req, res, next){
    next();
 });
 
@@ -226,7 +227,7 @@ router.post('/signin', passport.authenticate('local.signin', {
     }
 });
 
-router.get('/reset/:token', notLoggedIn, function(req, res) {
+router.get('/reset/:token', Common.notLoggedIn, function(req, res) {
     var messages = req.flash();
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
@@ -241,7 +242,7 @@ router.get('/reset/:token', notLoggedIn, function(req, res) {
     });
 });
 
-router.post('/reset/:token', notLoggedIn, function(req, res) {
+router.post('/reset/:token', Common.notLoggedIn, function(req, res) {
     var messages = req.flash();
     async.waterfall([
         function(done) {
@@ -296,11 +297,11 @@ router.post('/reset/:token', notLoggedIn, function(req, res) {
     });
 });
 
-router.get('/forgot', notLoggedIn, function(req, res) {
+router.get('/forgot', Common.notLoggedIn, function(req, res) {
     res.render('user/forgot', {csrfToken: req.csrfToken(), user: req.user});
 });
 
-router.post('/forgot', notLoggedIn, function(req, res, next) {
+router.post('/forgot', Common.notLoggedIn, function(req, res, next) {
     var messages = req.flash();
     async.waterfall([
         function(done) {
@@ -358,18 +359,5 @@ router.post('/forgot', notLoggedIn, function(req, res, next) {
 
 module.exports = router;
 
-function isLoggedIn(req, res, next){
-    if (req.isAuthenticated()){
-      return next();
-    }
-    res.redirect('/user/signin');
-}
-
-function notLoggedIn(req, res, next){
-    if (!req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/');
-}
 
 

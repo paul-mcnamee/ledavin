@@ -5,6 +5,7 @@ var Order = require('../models/order');
 var Cart = require('../models/cart');
 var User = require('../models/user.js');
 var csrf = require('csurf');
+var Common = require('../routes/common.js');
 
 var csrfProtection = csrf();
 router.use(csrfProtection);
@@ -15,7 +16,7 @@ router.use(function (req, res, next){
 });
 
 /* GET the cart */
-router.get('/', isLoggedIn, function(req, res, next) {
+router.get('/', Common.isLoggedIn, function(req, res, next) {
     if (!req.session.cart){
         return res.render('shop/cart', {products: null});
     }
@@ -49,7 +50,8 @@ router.get('/', isLoggedIn, function(req, res, next) {
         selectedMeasurements: cart.selectedMeasurements,
         selectedContact: cart.selectedContact,
         measurements: measurements,
-        contacts: contacts
+        contacts: contacts,
+        csrfToken: req.csrfToken()
     })
 });
 
@@ -129,7 +131,7 @@ router.get('/apply-coupon/:code', function(req, res, next){
     });
 });
 
-router.post('/', isLoggedIn, function(req, res, next) {
+router.post('/', Common.isLoggedIn, function(req, res, next) {
     if (!req.session.cart){
         return res.render('shop/cart', {products: null});
     }
@@ -159,10 +161,3 @@ router.post('/', isLoggedIn, function(req, res, next) {
 
 module.exports = router;
 
-
-function isLoggedIn(req, res, next){
-    if (req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/user/signin');
-}

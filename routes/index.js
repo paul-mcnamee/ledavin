@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Cart = require('../models/cart');
-
 var Product = require('../models/product');
 var Coupon = require('../models/coupon');
 var Order = require('../models/order');
+var Common = require('../routes/common.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,13 +16,6 @@ router.get('/', function(req, res, next) {
             products.push(docs[p])
         }
 
-        //break the products up into chunks of 3 to display on the page
-        //var productChunks = [];
-        //var chunkSize = 3;
-        //for (var i = 0; i < docs.length; i += chunkSize){
-        //    productChunks.push(docs.slice(i, i + chunkSize));
-        //}
-
         var materialsToFilter = [];
         var colorsToFilter = [];
 
@@ -33,7 +26,7 @@ router.get('/', function(req, res, next) {
             var materialPaths = docs[k].materials;
             for (var j=0; j < materialPaths.length; j++)
             {
-                if (!isInArray(docs[k].materials[j].link, materialsToFilter))
+                if (!Common.isInArray(docs[k].materials[j].link, materialsToFilter))
                 {
                     materialsToFilter.push([docs[k].materials[j].name, docs[k].materials[j].link])
                 }
@@ -42,7 +35,7 @@ router.get('/', function(req, res, next) {
             //find a unique list of colors in the products to filter by
             var colors = docs[k].colors;
             for (var l=0; l < colors.length; l++){
-                if (!isInArray(docs[k].colors[l], colorsToFilter))
+                if (!Common.isInArray(docs[k].colors[l], colorsToFilter))
                 {
                     colorsToFilter.push(docs[k].colors[l])
                 }
@@ -121,7 +114,18 @@ router.get('/remove-from-cart/:id', function(req, res, next){
     });
 });
 
-router.get('/checkout', isLoggedIn, function(req, res, next) {
+router.get('/checkout', Common.isLoggedIn,
+    function(req, res, next){
+        //TODO: calculate the shipping costs
+        next();
+    },
+
+    function(req, res, next){
+        //TODO: calculate the tax costs
+        next();
+    },
+
+    function(req, res, next) {
     if (!req.session.cart){
         return res.redirect('shop/cart', {products: null});
     }
@@ -146,7 +150,7 @@ router.get('/checkout', isLoggedIn, function(req, res, next) {
     });
 });
 
-router.post('/checkout', isLoggedIn, function(req, res, next) {
+router.post('/checkout', Common.isLoggedIn, function(req, res, next) {
     if (!req.session.cart){
         return res.redirect('shop/cart', {products: null});
     }
@@ -220,16 +224,3 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
 });
 
 module.exports = router;
-
-function isLoggedIn(req, res, next){
-    if (req.isAuthenticated()){
-        return next();
-    }
-    //save the url the user came from
-    req.session.oldUrl = req.url;
-    res.redirect('/user/signin');
-}
-
-function isInArray(value, array) {
-    return array.indexOf(value) > -1;
-}
