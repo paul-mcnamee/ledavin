@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1>products</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        {{#if products}}
+            {{#each products}}
+                {{#each this}}
+                    {{#each this}}
+                        {{#each this}}
+                            <div class="row">
+                                {{this}}
+                                <br/>
+                                Title:
+                                {{this.title}}
+                                <hr/>
+                            </div>
+                        {{/each}}
+                    {{/each}}
+                {{/each}}
+            {{/each}}
+        {{else}}
+            <p>We have no products, <a href="/admin/addProduct">ADD SOME!!!</a></p>
+        {{/if}}
+    </div>
+</div>

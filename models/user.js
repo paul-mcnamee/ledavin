@@ -35,7 +35,7 @@ this.generateMeasurementsArray = function() {
  * generate the coupons that the user had already entered (should be singular currently since we delete the old one)
  * @returns {Array}
  */
-this.generateContactssArray = function() {
+this.generateContactsArray = function() {
     var arr = [];
     for (var contact in this.contacts){
         arr.push(this.contacts[contact]);

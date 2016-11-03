@@ -144,7 +144,7 @@ router.post('/', Common.isLoggedIn, function(req, res, next) {
     for (var item in cart.items){
         if (cart.items.hasOwnProperty(item)){
             cart.items[item].measurements = {
-                //not sure how to get the req.item.shoulderSlope + itemId
+                //this is a bit hacky since I am not sure how to cleanly get the req.item.shoulderSlope + itemId
                 shoulderSlope: req.body.ShoulderSlope[itemCounter],
                 tuckPreference: req.body.TuckPreference[itemCounter],
                 fit: req.body.Fit[itemCounter]
