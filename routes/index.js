@@ -199,8 +199,7 @@ router.post('/checkout', Common.isLoggedIn, function(req, res, next) {
         //order tracking information
         var tracking = {
             trackingNumber: '',
-            carrierId: 0,
-            estimatedArrival: Date.now()
+            carrierId: 0
         };
 
         var order = new Order({

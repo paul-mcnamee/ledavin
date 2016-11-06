@@ -30,7 +30,7 @@ router.get('/orders', Common.isLoggedIn, Common.hasAdminPermissions, function(re
     //shipping: {type: Object, required: true}, //address, shipping method,
     //tracking: {type: Object, required: true} //carrier, trackingID, ...
 
-    var orders = Order.find({}).sort('orderCreated').limit(2).exec(function(err, docs) {
+    var orders = Order.find({}).sort('-orderCreated').limit(4).exec(function(err, docs) {
     });
 
     res.render('admin/orders', {

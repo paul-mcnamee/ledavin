@@ -4,23 +4,62 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-6">
+        <form id="search-form" class="form-inline" role="form" method="post" action="" target="_blank">
+            <div class="input-group">
+                <input type="text" class="form-control search-form" placeholder="Enter Order ID">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn" data-target="#search-form" name="q"><i class="fa fa-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         {{#if orders}}
-            {{#each orders}}
-                {{#each this}}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Shipping Address</th>
+                    <th>Phone</th>
+                    <th>Billing Address</th>
+                    <th>Tracking Number</th>
+                    <th>Carrier</th>
+                    <th>Purchased Items</th>
+                    <th>SubTotal</th>
+                    <th>Discount</th>
+                    <th>Total Paid</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each orders}}
                     {{#each this}}
                         {{#each this}}
-                            <div class="row">
-                                {{this}}
-                                <br/>
-                                Order Created:
-                                {{this.orderCreated}}
-                                <hr/>
-                            </div>
+                            {{#each this}}
+                                <tr>
+                                    <td>{{this._id}}</td>
+                                    <td>{{this.shipping.contact.firstName}} {{this.shipping.contact.lastName}}
+                                        <br/> {{this.shipping.contact.address}} {{this.shipping.contact.city}} {{this.shipping.contact.state}} {{this.shipping.contact.zipcode}}
+                                        <br/> {{this.shipping.contact.country}} </td>
+                                    <td>{{this.shipping.contact.phone}}</td>
+                                    <td>{{this.billing.address}}</td>
+                                    <td>{{this.tracking.trackingNumber}}</td>
+                                    <td>{{this.tracking.carrierId}}</td>
+                                    <td>{{#each this.cart.items}}{{@key}}<br/>{{/each}}</td>
+                                    <td>{{this.cart.subtotal}}</td>
+                                    <td>{{this.cart.totalDiscount}}</td>
+                                    <td>{{this.cart.totalPrice}}</td>
+                                </tr>
+                            {{/each}}
                         {{/each}}
                     {{/each}}
                 {{/each}}
-            {{/each}}
+                </tbody>
+            </table>
+
         {{else}}
             <p>We have no orders, this makes me sad...</p>
         {{/if}}
